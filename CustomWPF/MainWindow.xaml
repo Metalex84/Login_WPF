@@ -275,15 +275,14 @@
                               IsHitTestVisible="False" Grid.ColumnSpan="2"/>
                 </Grid>
 
-                <!-- Términos y Condiciones -->
-                <CheckBox x:Name="chkTerminos" 
+                <!-- Recordar Contraseña -->
+                <CheckBox x:Name="chkRecordarContrasena" 
                          FontSize="14" 
                          Foreground="{StaticResource OnSurfaceColor}"
                          Margin="0,0,0,32" 
-                         VerticalContentAlignment="Center" Checked="chkTerminos_Checked">
+                         VerticalContentAlignment="Center">
                     <TextBlock>
-                        <Run Text="Acepto los "/>
-                        <Run Text="términos y condiciones" Foreground="{StaticResource PrimaryColor}" TextDecorations="Underline" Cursor="Hand"/>
+                        <Run Text="Recordar contraseña"/>
                     </TextBlock>
                 </CheckBox>
             </StackPanel>

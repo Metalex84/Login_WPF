@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\agonz\source\repos\Metalex84\CustomWPF\CustomWPF\obj\Debug\
+C:\Users\agonz\source\repos\Login_WPF\CustomWPF\obj\Debug\
 CustomWPF
 none
 false
 DEBUG;TRACE
-C:\Users\agonz\source\repos\Metalex84\CustomWPF\CustomWPF\App.xaml
-1219584333
+C:\Users\agonz\source\repos\Login_WPF\CustomWPF\App.xaml
+2351113280
 
-6-502434485
-13-1310406943
-MainWindow.xaml;
+111583116163
+16-844881763
+MainWindow.xaml;RegisterWindow.xaml;
 
-True
+False
 

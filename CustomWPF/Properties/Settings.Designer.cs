@@ -26,5 +26,50 @@ namespace CustomWPF.Properties
                 return defaultInstance;
             }
         }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Usuario
+        {
+            get
+            {
+                return ((string)(this["Usuario"]));
+            }
+            set
+            {
+                this["Usuario"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Contrasena
+        {
+            get
+            {
+                return ((string)(this["Contrasena"]));
+            }
+            set
+            {
+                this["Contrasena"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool RecordarContrasena
+        {
+            get
+            {
+                return ((bool)(this["RecordarContrasena"]));
+            }
+            set
+            {
+                this["RecordarContrasena"] = value;
+            }
+        }
     }
 }

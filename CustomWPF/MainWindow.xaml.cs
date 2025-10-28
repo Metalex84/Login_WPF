@@ -23,6 +23,18 @@ namespace CustomWPF
         public MainWindow()
         {
             InitializeComponent();
+            CargarCredencialesGuardadas();
+        }
+
+        private void CargarCredencialesGuardadas()
+        {
+            // Cargar credenciales guardadas si existen
+            if (Properties.Settings.Default.RecordarContrasena)
+            {
+                txtUsuario.Text = Properties.Settings.Default.Usuario;
+                txtContrasena.Password = Properties.Settings.Default.Contrasena;
+                chkRecordarContrasena.IsChecked = true;
+            }
         }
 
         private void btnEntrar_Click(object sender, RoutedEventArgs e)
@@ -42,23 +54,54 @@ namespace CustomWPF
                 return;
             }
 
-            if (!chkTerminos.IsChecked == true)
+            // Validaciones de seguridad
+            string usuario = txtUsuario.Text.Trim();
+            string contrasena = txtContrasena.Password;
+
+            // Validar formato de usuario
+            if (!SecurityHelper.IsValidUsername(usuario))
             {
-                MessageBox.Show("Debe aceptar los términos y condiciones.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("El nombre de usuario contiene caracteres no válidos.\nSolo se permiten letras, números, puntos y guiones bajos (3-30 caracteres).", 
+                    "Error de Validación", MessageBoxButton.OK, MessageBoxImage.Warning);
+                txtUsuario.Focus();
+                return;
+            }
+
+            // Validar inyección SQL
+            if (!SecurityHelper.IsSqlInjectionSafe(usuario) || !SecurityHelper.IsSqlInjectionSafe(contrasena))
+            {
+                MessageBox.Show("Se han detectado caracteres o patrones no permitidos en los campos.", 
+                    "Error de Seguridad", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
             // Aquí iría la lógica de autenticación
-            string usuario = txtUsuario.Text;
-            string contrasena = txtContrasena.Password;
+            // Los valores ya están validados y sanitizados arriba
+
+            // Guardar o eliminar credenciales según el checkbox
+            if (chkRecordarContrasena.IsChecked == true)
+            {
+                Properties.Settings.Default.Usuario = usuario;
+                Properties.Settings.Default.Contrasena = contrasena;
+                Properties.Settings.Default.RecordarContrasena = true;
+                Properties.Settings.Default.Save();
+            }
+            else
+            {
+                Properties.Settings.Default.Usuario = string.Empty;
+                Properties.Settings.Default.Contrasena = string.Empty;
+                Properties.Settings.Default.RecordarContrasena = false;
+                Properties.Settings.Default.Save();
+            }
 
             MessageBox.Show($"Bienvenido, {usuario}!", "Login Exitoso", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void btnRegistrarse_Click(object sender, RoutedEventArgs e)
         {
-            // Aquí iría la lógica para abrir el formulario de registro
-            MessageBox.Show("Funcionalidad de registro no implementada aún.", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+            // Abrir ventana de registro
+            RegisterWindow registerWindow = new RegisterWindow();
+            registerWindow.ShowDialog();
         }
 
         // Manejadores de eventos para los botones de ventana
@@ -80,9 +123,5 @@ namespace CustomWPF
             }
         }
 
-        private void chkTerminos_Checked(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }
